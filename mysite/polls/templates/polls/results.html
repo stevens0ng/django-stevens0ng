@@ -1,0 +1,40 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{# Header #}
+{% block bootstrap5_content %}
+<div class="container">
+    <p>
+        <a href="{% url 'polls:index' %}">home</a> |
+        <a href="{% url 'polls:index' %}">polls</a> |
+        <a href="{% url 'polls:deepthoughts' %}">deepthoughts</a> |
+        <a href="{% url 'polls:deepthoughts_list' %}">list of deep thoughts</a>
+    </p>
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% block content %}
+{% block bootstrap5_title %}
+    <legend>Poll Result</legend>
+{% endblock %}
+{# ------------------------------- #}
+
+<h1>{{ question.question_text }}</h1>
+
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+
+{# ----------------------------- #}
+{% endblock %}
+{# Footer #}
+<p> &copy UVA &nbsp;&nbsp;&nbsp           author: Steven Song <p>
+
+</div>
+{% endblock %}

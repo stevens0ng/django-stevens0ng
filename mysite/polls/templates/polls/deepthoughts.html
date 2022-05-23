@@ -1,0 +1,45 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{# Header #}
+{% block bootstrap5_content %}
+<div class="container">
+    <p>
+        <a href="{% url 'polls:index' %}">home</a> | 
+        <a href="{% url 'polls:index' %}">polls</a> | 
+        <a href="{% url 'polls:deepthoughts' %}">deepthoughts</a> | 
+        <a href="{% url 'polls:deepthoughts_list' %}">list of deep thoughts</a>
+    </p>
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% block content %}
+{% block bootstrap5_title %}
+    <legend>Submit a deep thought about life</legend>
+{% endblock %}
+
+<form action="{% url 'polls:deepthoughtsSave' %}" method="post" class="form">
+{% csrf_token %}
+{# bootstrap_form form doesn't work#}
+<fieldset>
+    {% bootstrap_label "Title: " label_for="deepthought_title" %}
+    <input type="text" name="deepthought_title" maxlength="200">
+    <br/>
+    <br/>
+    {% bootstrap_label "Text: " label_for="deepthought_text" %}
+    <input type="text" name="deepthought_text" size="100" maxlength="200">
+</fieldset>
+<br/>
+{% buttons layout='horizontal' %}
+<input type="submit" value="Save" class="btn btn-primary">
+{% endbuttons %}
+</form>
+
+{% endblock %}
+{# Footer #}
+<p> &copy UVA &nbsp;&nbsp;&nbsp           author: Steven Song <p>
+
+</div>
+{% endblock %}

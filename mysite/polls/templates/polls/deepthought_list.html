@@ -1,0 +1,40 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{# Header #}
+{% block bootstrap5_content %}
+<div class="container">
+    <p>
+        <a href="{% url 'polls:index' %}">home</a> |
+        <a href="{% url 'polls:index' %}">polls</a> |
+        <a href="{% url 'polls:deepthoughts' %}">deepthoughts</a> |
+        <a href="{% url 'polls:deepthoughts_list' %}">list of deep thoughts</a>
+    </p>
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% block content %}
+{% block bootstrap5_title %}
+    <legend>A List of deep thoughts</legend>
+{% endblock %}
+{# ------------------------------- #}
+
+{% if deepthought_list %}
+    <ul>
+    {% for dt in deepthought_list %}
+        <li>{{ dt.deepthought_title }}&nbsp;&nbsp;{{ dt.deepthought_text }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No deep thoughts are available.</p>
+{% endif %}
+
+{# ----------------------------- #}
+{% endblock %}
+{# Footer #}
+<p> &copy UVA &nbsp;&nbsp;&nbsp           author: Steven Song <p>
+
+</div>
+{% endblock %}

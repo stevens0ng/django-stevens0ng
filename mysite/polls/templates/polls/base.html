@@ -1,0 +1,24 @@
+{% extends 'bootstrap5/bootstrap5.html' %}
+
+{% block bootstrap5_title %}{% block title %}{% endblock %}{% endblock %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{% block bootstrap5_content %}
+    <div class="container">
+        <h1>{% block title %}(no title){% endblock %}</h1>
+
+        <p>
+            <a href="{% url 'polls' %}">home</a>
+            <a href="{% url 'polls' %}">polls</a>
+            <a href="{% url 'polls/deepthoughts' %}">deep thoughts</a>
+        </p>
+
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+        {% block content %}(no content){% endblock %}
+    </div>
+
+{% endblock %}
